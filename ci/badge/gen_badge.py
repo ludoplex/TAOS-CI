@@ -26,11 +26,8 @@ import svgwrite
 # @param[in] url A valid url-string indicating a specific html file
 def get_html(url):
     """get_html(url) -> str"""
-    _html = ''
     resp = requests.get(url)
-    if resp.status_code == 200:
-        _html = resp.text
-    return _html
+    return resp.text if resp.status_code == 200 else ''
 
 ##
 # @brief Get a gradient colorcode from green to red of given value (scaled)
@@ -45,7 +42,7 @@ def get_code_g_y_r(val, scale):
         green = 255 * val / scale
         red = 255 - (val - 50) * (255 / (float(scale) / 2))
 
-    rgb = (int(red), int(green), int(0))
+    rgb = int(red), int(green), 0
 
     return '#%02x%02x%02x' % rgb
 
